@@ -49,6 +49,7 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/typography'),
+    require('@tailwindcss/aspect-ratio'),
     plugin(({ matchUtilities, theme }) => {
       matchUtilities(
         {
