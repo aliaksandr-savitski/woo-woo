@@ -61,7 +61,7 @@ export type Page = {
   updatedAt: string;
 };
 
-export type Product = Omit<ShopifyProduct, 'variants' | 'images'> & {
+export type Product = Omit<WooCommerceProduct, 'variants' | 'images'> & {
   variants: ProductVariant[];
   images: Image[];
 };
@@ -108,24 +108,10 @@ export type ShopifyCollection = {
   updatedAt: string;
 };
 
-export type ShopifyProduct = {
+export type WooCommerceProduct = {
   id: string;
-  handle: string;
-  availableForSale: boolean;
-  title: string;
-  description: string;
-  descriptionHtml: string;
-  options: ProductOption[];
-  priceRange: {
-    maxVariantPrice: Money;
-    minVariantPrice: Money;
-  };
-  variants: Connection<ProductVariant>;
-  featuredImage: Image;
-  images: Connection<Image>;
-  seo: SEO;
-  tags: string[];
-  updatedAt: string;
+  name: string;
+  slug: string;
 };
 
 export type ShopifyCartOperation = {
@@ -196,7 +182,7 @@ export type ShopifyCollectionOperation = {
 export type ShopifyCollectionProductsOperation = {
   data: {
     collection: {
-      products: Connection<ShopifyProduct>;
+      products: Connection<WooCommerceProduct>;
     };
   };
   variables: {
@@ -237,25 +223,25 @@ export type ShopifyPagesOperation = {
   };
 };
 
-export type ShopifyProductOperation = {
-  data: { product: ShopifyProduct };
+export type WooCommerceProductOperation = {
+  data: { product: WooCommerceProduct };
   variables: {
     handle: string;
   };
 };
 
-export type ShopifyProductRecommendationsOperation = {
+export type WooCommerceProductRecommendationsOperation = {
   data: {
-    productRecommendations: ShopifyProduct[];
+    productRecommendations: WooCommerceProduct[];
   };
   variables: {
     productId: string;
   };
 };
 
-export type ShopifyProductsOperation = {
+export type WooCommerceProductsOperation = {
   data: {
-    products: Connection<ShopifyProduct>;
+    products: Connection<WooCommerceProduct>;
   };
   variables: {
     query?: string;
