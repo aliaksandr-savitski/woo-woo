@@ -2,8 +2,8 @@
 import { Suspense } from 'react';
 import { getProducts } from 'src/app/products/api/getProducts';
 import ProductsList from 'src/app/products/components/ProductsList';
-import { ThreeItemGrid } from 'src/components/grid/three-items';
-import Footer from 'src/components/layout/footer';
+import { ThreeItemGrid } from 'src/app/components/grid/three-items';
+import Footer from 'src/app/components/layout/footer';
 
 export const runtime = 'edge';
 

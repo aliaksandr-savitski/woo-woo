@@ -1,5 +1,5 @@
-import Grid from 'src/components/grid';
-import ProductGridItems from 'src/components/layout/product-grid-items';
+import Grid from 'src/app/components/grid';
+import ProductGridItems from 'src/app/components/layout/product-grid-items';
 import { defaultSort, sorting } from 'src/lib/constants';
 import { getProducts } from 'src/lib/woocommerce';
 

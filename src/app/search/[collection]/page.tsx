@@ -2,8 +2,8 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getCollection } from 'src/lib/woocommerce';
 
-import Grid from 'src/components/grid';
-import ProductGridItems from 'src/components/layout/product-grid-items';
+import Grid from 'src/app/components/grid';
+import ProductGridItems from 'src/app/components/layout/product-grid-items';
 import { defaultSort, sorting } from 'src/lib/constants';
 
 export const runtime = 'edge';

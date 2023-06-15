@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import { notFound } from 'next/navigation';
-import Prose from 'src/components/prose';
+import Prose from 'src/app/components/prose';
 
 const getPage = async (page: any) => ({
   title: '<title /',

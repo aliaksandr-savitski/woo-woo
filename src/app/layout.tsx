@@ -1,8 +1,7 @@
 import { Inter } from 'next/font/google';
 import { ReactNode, Suspense } from 'react';
 
-// import TanStackQueryClientProvider from '../providers/TanStackQueryClientProvider';
-import TQQueryClientProvider from './providers/TQQueryClientProvider';
+import Navbar from 'src/app/components/layout/Navbar';
 
 import './globals.css';
 
@@ -14,17 +13,9 @@ export const metadata = {
     template: `%s | ${SITE_NAME}`
   },
   robots: {
-    follow: true,
-    index: true
-  },
-  ...(TWITTER_CREATOR &&
-    TWITTER_SITE && {
-      twitter: {
-        card: 'summary_large_image',
-        creator: TWITTER_CREATOR,
-        site: TWITTER_SITE
-      }
-    })
+    follow: !!process.env.IS_RELEASED,
+    index: !!process.env.IS_RELEASED
+  }
 };
 
 const inter = Inter({
@@ -37,13 +28,13 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   return (
     <html lang="en" className={inter.variable}>
       <body className="bg-white text-black selection:bg-teal-300 dark:bg-black dark:text-white dark:selection:bg-fuchsia-600 dark:selection:text-white">
-        <TQQueryClientProvider>
+        <header className="bg-white">
           {/* @ts-expect-error Server Component */}
-          {/* <Navbar /> */}
-          <Suspense>
-            <main>{children}</main>
-          </Suspense>
-        </TQQueryClientProvider>
+          <Navbar />
+        </header>
+        <Suspense>
+          <main>{children}</main>
+        </Suspense>
       </body>
     </html>
   );

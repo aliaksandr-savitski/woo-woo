@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import Footer from 'src/components/layout/footer';
+import Footer from 'src/app/components/layout/footer';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
