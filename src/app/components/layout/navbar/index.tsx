@@ -38,7 +38,7 @@ const Navbar = async () => {
             menuItem.subcategories ? (
               <NavItemWithFlyout key={menuItem.id} item={menuItem} />
             ) : (
-              <NavbarItem id={menuItem.id} slug={menuItem.slug} name={menuItem.slug} />
+              <NavbarItem id={menuItem.id} slug={menuItem.slug} name={menuItem.name} />
             )
           )}
         </div>

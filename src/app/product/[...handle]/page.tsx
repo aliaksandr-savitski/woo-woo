@@ -5,13 +5,17 @@ import { Suspense } from 'react';
 import Grid from 'src/app/components/grid';
 import Footer from 'src/app/components/layout/footer';
 import ProductGridItems from 'src/app/components/layout/product-grid-items';
+import BreadCrumbs from 'src/app/components/BreadCrumbs';
 import { AddToCart } from 'src/app/components/product/add-to-cart';
-import { Gallery } from 'src/app/components/product/gallery';
+import ProductGallery from 'src/app/components/product/ProductGallery';
+import ProductInfo from 'src/app/components/product/ProductInfo';
 import { VariantSelector } from 'src/app/components/product/variant-selector';
 import Prose from 'src/app/components/prose';
 import { HIDDEN_PRODUCT_TAG } from 'src/lib/constants';
-import { getProduct, getProductRecommendations } from 'src/lib/woocommerce';
-import { Image } from 'src/lib/woocommerce/types';
+import { getProductRecommendations } from 'src/lib/woocommerce';
+import { getProduct } from 'src/app/products/api/getProduct';
+import { Image } from 'src/lib/woocommerce/WCTypes';
+import { storeSettings } from 'src/lib/woocommerce/store-settings';
 
 export const runtime = 'edge';
 
@@ -20,16 +24,20 @@ export async function generateMetadata({
 }: {
   params: { handle: string };
 }): Promise<Metadata> {
-  const product = await getProduct(params.handle);
+  const [productId] = params.handle;
+
+  if (!productId) return {};
+
+  const product = await getProduct(productId);
 
   if (!product) return notFound();
 
-  const { url, width, height, altText: alt } = product.featuredImage || {};
+  const { src, alt } = product.images[0] || {};
   const hide = !product.tags.includes(HIDDEN_PRODUCT_TAG);
 
   return {
-    title: product.seo.title || product.title,
-    description: product.seo.description || product.description,
+    title: product.name,
+    description: product.short_description || product.description,
     robots: {
       index: hide,
       follow: hide,
@@ -38,13 +46,11 @@ export async function generateMetadata({
         follow: hide
       }
     },
-    openGraph: url
+    openGraph: src
       ? {
           images: [
             {
-              url,
-              width,
-              height,
+              url: src,
               alt
             }
           ]
@@ -54,67 +60,46 @@ export async function generateMetadata({
 }
 
 export default async function ProductPage({ params }: { params: { handle: string } }) {
-  const product = await getProduct(params.handle);
+  const [productId] = params.handle;
+
+  if (!productId || typeof productId !== 'string') {
+    return notFound();
+  }
+
+  const product = await getProduct(productId);
 
   if (!product) return notFound();
 
   const productJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: product.title,
+    name: product.name,
     description: product.description,
-    image: product.featuredImage.url,
+    image: product.images[0]?.src,
     offers: {
       '@type': 'AggregateOffer',
-      availability: product.availableForSale
+      availability: product.in_stock
         ? 'https://schema.org/InStock'
         : 'https://schema.org/OutOfStock',
-      priceCurrency: product.priceRange.minVariantPrice.currencyCode,
-      highPrice: product.priceRange.maxVariantPrice.amount,
-      lowPrice: product.priceRange.minVariantPrice.amount
+      priceCurrency: storeSettings.currency,
+      highPrice: product.regular_price,
+      lowPrice: product.sale_price
     }
   };
 
   return (
-    <div>
+    <div className="bg-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(productJsonLd)
         }}
       />
-      <div className="lg:grid lg:grid-cols-6">
-        <div className="lg:col-span-4">
-          <Gallery
-            title={product.title}
-            amount={product.priceRange.maxVariantPrice.amount}
-            currencyCode={product.priceRange.maxVariantPrice.currencyCode}
-            images={product.images.map((image: Image) => ({
-              src: image.url,
-              altText: image.altText
-            }))}
-          />
-        </div>
-
-        <div className="p-6 lg:col-span-2">
-          {/* @ts-expect-error Server Component */}
-          <VariantSelector options={product.options} variants={product.variants} />
-
-          {product.descriptionHtml ? (
-            <Prose className="mb-6 text-sm leading-tight" html={product.descriptionHtml} />
-          ) : null}
-
-          <AddToCart variants={product.variants} availableForSale={product.availableForSale} />
-        </div>
+      <div className="pt-6">
+        <BreadCrumbs />
+        <ProductGallery images={product.images} />
+        <ProductInfo product={product} currency={storeSettings.currency} />
       </div>
-      <Suspense>
-        {/* @ts-expect-error Server Component */}
-        <RelatedProducts id={product.id} />
-        <Suspense>
-          {/* @ts-expect-error Server Component */}
-          <Footer />
-        </Suspense>
-      </Suspense>
     </div>
   );
 }

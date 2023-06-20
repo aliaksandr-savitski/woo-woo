@@ -8,7 +8,6 @@ interface Props {
 
 const ProductsListItem = ({ product }: Props) => {
   const [image] = product.images;
-  const urlBase = product.categories.map(({ slug }) => slug).join('/');
 
   return (
     <div className="group relative">
@@ -24,7 +23,7 @@ const ProductsListItem = ({ product }: Props) => {
       <div className="mt-4 flex justify-between">
         <div>
           <h3 className="text-sm text-gray-700">
-            <Link href={`/${urlBase}/${product.slug}`}>
+            <Link href={`/product/${product.id}/${product.slug}`}>
               <span aria-hidden="true" className="absolute inset-0"></span>
               {product.name}
             </Link>

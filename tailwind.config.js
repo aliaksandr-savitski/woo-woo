@@ -20,7 +20,8 @@ module.exports = {
         hotPink: '#FF1966',
         dark: '#111111',
         light: '#FAFAFA',
-        violetDark: '#4c2889'
+        violetDark: '#4c2889',
+        blue: '#3b82f6'
       },
       keyframes: {
         fadeIn: {
@@ -36,6 +37,9 @@ module.exports = {
           '20%': { opacity: 1 },
           '100% ': { opacity: 0.2 }
         }
+      },
+      gridTemplateRows: {
+        '[auto,auto,1fr]': 'auto auto 1fr'
       },
       animation: {
         fadeIn: 'fadeIn .3s ease-in-out',
