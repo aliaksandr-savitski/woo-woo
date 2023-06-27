@@ -1,7 +1,7 @@
 // import Cart from 'components/cart';
 
 import { getProductsCategories } from 'src/app/products/api/getProductsCategories';
-import { generateMenu } from './utils/generateMenu';
+import { generateMenu } from 'src/utils/generateMenu';
 import { NavItemWithFlyout, NavbarItem } from './components/NavbarItem';
 import NavbarLogo from './components/NavbarLogo';
 import MobileMenu from './components/MobileMenu';

@@ -6,6 +6,7 @@ import Grid from 'src/app/components/grid';
 import Footer from 'src/app/components/layout/footer';
 import ProductGridItems from 'src/app/components/layout/product-grid-items';
 import BreadCrumbs from 'src/app/components/BreadCrumbs';
+import { BreadCrumb } from 'src/app/components/BreadCrumbs';
 import { AddToCart } from 'src/app/components/product/add-to-cart';
 import ProductGallery from 'src/app/components/product/ProductGallery';
 import ProductInfo from 'src/app/components/product/ProductInfo';
@@ -16,6 +17,7 @@ import { getProductRecommendations } from 'src/lib/woocommerce';
 import { getProduct } from 'src/app/products/api/getProduct';
 import { Image } from 'src/lib/woocommerce/WCTypes';
 import { storeSettings } from 'src/lib/woocommerce/store-settings';
+import { Category } from 'src/lib/woocommerce/WCTypes';
 
 export const runtime = 'edge';
 
@@ -87,6 +89,20 @@ export default async function ProductPage({ params }: { params: { handle: string
     }
   };
 
+  const breadcrubs: BreadCrumb[] = product.categories.reduce<Partial<Category>[]>(
+    (accumulator: BreadCrumb[], nextValue: Partial<Category>) =>
+      !!accumulator.length && accumulator[accumulator.length - 1]?.href
+        ? [
+            ...accumulator,
+            {
+              ...nextValue,
+              href: `${accumulator[accumulator.length - 1].href}/${nextValue.slug}`
+            }
+          ]
+        : [{ ...nextValue, href: `/${nextValue.slug}` }],
+    []
+  );
+
   return (
     <div className="bg-white">
       <script
@@ -96,7 +112,7 @@ export default async function ProductPage({ params }: { params: { handle: string
         }}
       />
       <div className="pt-6">
-        <BreadCrumbs />
+        <BreadCrumbs items={breadcrubs} />
         <ProductGallery images={product.images} />
         <ProductInfo product={product} currency={storeSettings.currency} />
       </div>
