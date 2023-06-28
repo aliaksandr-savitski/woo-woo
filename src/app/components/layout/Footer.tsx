@@ -17,7 +17,7 @@ export default async function Footer() {
   const menu: Menu[] = [];
 
   return (
-    <footer className="border-t border-gray-700 bg-white text-black dark:bg-black dark:text-white">
+    <footer className="border-t border-gray-700 bg-white text-black">
       <div className="mx-auto w-full max-w-7xl px-6">
         <div className="grid grid-cols-1 gap-8 border-b border-gray-700 py-12 transition-colors duration-150 lg:grid-cols-12">
           <div className="col-span-1 lg:col-span-3">
@@ -35,7 +35,7 @@ export default async function Footer() {
                   <li key={item.title} className="py-3 md:py-0 md:pb-4">
                     <Link
                       href={item.path}
-                      className="text-gray-800 transition duration-150 ease-in-out hover:text-gray-300 dark:text-gray-100"
+                      className="text-gray-800 transition duration-150 ease-in-out hover:text-gray-300"
                     >
                       {item.title}
                     </Link>
@@ -44,7 +44,7 @@ export default async function Footer() {
               </ul>
             </nav>
           ) : null}
-          <div className="col-span-1 text-black dark:text-white lg:col-span-2">
+          <div className="col-span-1 text-black lg:col-span-2">
             <a aria-label="Github Repository" href="https://github.com/vercel/commerce">
               <GitHubIcon className="h-6" />
             </a>
@@ -54,18 +54,6 @@ export default async function Footer() {
           <p>
             &copy; {copyrightDate} {SITE_NAME}. All rights reserved.
           </p>
-          <div className="flex items-center text-sm text-white dark:text-black">
-            <span className="text-black dark:text-white">Created by</span>
-            <a
-              rel="noopener noreferrer"
-              href="https://vercel.com"
-              aria-label="Vercel.com Link"
-              target="_blank"
-              className="text-black dark:text-white"
-            >
-              <VercelIcon className="ml-3 inline-block h-6" />
-            </a>
-          </div>
         </div>
       </div>
     </footer>

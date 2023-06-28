@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 import CloseIcon from 'src/app/components/icons/close';
 import ShoppingBagIcon from 'src/app/components/icons/shopping-bag';
-import Price from 'src/app/components/price';
+import Price from 'src/app/components/Price';
 import { DEFAULT_OPTION } from 'src/lib/constants';
 import { createUrl } from 'src/lib/utils';
 import type { Cart } from 'src/lib/woocommerce/types';

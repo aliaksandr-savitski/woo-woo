@@ -6,7 +6,7 @@ const UNCATEGORIZED_CATEGORY_SLUG = 'uncategorized';
 const generateHref = (categories: Category[], parent: Number = 0, hrefBase: string) => {
   const parentCategory = categories.find((item) => item.id === parent);
 
-  let href = `${parentCategory ? parentCategory.slug : ''}/${hrefBase}`;
+  let href = `${parentCategory ? parentCategory.slug : '/category'}/${hrefBase}`;
 
   // START RECURSION
   if (parentCategory && parent !== 0) {

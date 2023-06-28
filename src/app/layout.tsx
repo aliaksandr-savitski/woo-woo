@@ -2,6 +2,7 @@ import { Inter } from 'next/font/google';
 import { ReactNode, Suspense } from 'react';
 
 import Navbar from 'src/app/components/layout/Navbar';
+import Footer from 'src/app/components/layout/Footer';
 
 import './globals.css';
 
@@ -26,14 +27,22 @@ const inter = Inter({
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="bg-white text-black selection:bg-teal-300 dark:bg-black dark:text-white dark:selection:bg-fuchsia-600 dark:selection:text-white">
+    <html lang="pl" className={inter.variable}>
+      <body className="bg-white text-black selection:bg-teal-300">
         <header className="bg-white">
-          {/* @ts-expect-error Server Component */}
-          <Navbar />
+          <Suspense>
+            {/* @ts-expect-error Server Component */}
+            <Navbar />
+          </Suspense>
         </header>
+
         <Suspense>
           <main>{children}</main>
+        </Suspense>
+
+        <Suspense>
+          {/* @ts-expect-error Server Component */}
+          <Footer />
         </Suspense>
       </body>
     </html>

@@ -49,7 +49,10 @@ const ProductInfo = ({ product, currency }: Props) => {
                    */}
 
                   {colorVariants.options.map((color, index) => (
-                    <label className="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 ring-gray-400 focus:outline-none">
+                    <label
+                      className="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 ring-gray-400 focus:outline-none"
+                      key={color}
+                    >
                       <input
                         type="radio"
                         name="color-choice"

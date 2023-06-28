@@ -1,21 +1,12 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
 
-import Grid from 'src/app/components/grid';
-import Footer from 'src/app/components/layout/footer';
-import ProductGridItems from 'src/app/components/layout/product-grid-items';
 import BreadCrumbs from 'src/app/components/BreadCrumbs';
 import { BreadCrumb } from 'src/app/components/BreadCrumbs';
-import { AddToCart } from 'src/app/components/product/add-to-cart';
 import ProductGallery from 'src/app/components/product/ProductGallery';
 import ProductInfo from 'src/app/components/product/ProductInfo';
-import { VariantSelector } from 'src/app/components/product/variant-selector';
-import Prose from 'src/app/components/prose';
 import { HIDDEN_PRODUCT_TAG } from 'src/lib/constants';
-import { getProductRecommendations } from 'src/lib/woocommerce';
 import { getProduct } from 'src/app/products/api/getProduct';
-import { Image } from 'src/lib/woocommerce/WCTypes';
 import { storeSettings } from 'src/lib/woocommerce/store-settings';
 import { Category } from 'src/lib/woocommerce/WCTypes';
 
@@ -116,21 +107,6 @@ export default async function ProductPage({ params }: { params: { handle: string
         <ProductGallery images={product.images} />
         <ProductInfo product={product} currency={storeSettings.currency} />
       </div>
-    </div>
-  );
-}
-
-async function RelatedProducts({ id }: { id: string }) {
-  const relatedProducts = await getProductRecommendations(id);
-
-  if (!relatedProducts.length) return null;
-
-  return (
-    <div className="px-4 py-8">
-      <div className="mb-4 text-3xl font-bold">Related Products</div>
-      <Grid className="grid-cols-2 lg:grid-cols-5">
-        <ProductGridItems products={relatedProducts} />
-      </Grid>
     </div>
   );
 }

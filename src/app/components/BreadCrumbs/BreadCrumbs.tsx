@@ -43,7 +43,7 @@ const BreadCrumbs = ({ items }: Props) => (
               aria-current="page"
               className="font-medium text-gray-500 hover:text-gray-600"
             >
-              Basic Tee 6-Pack
+              {name}
             </Link>
           </li>
         )

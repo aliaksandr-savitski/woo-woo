@@ -7,7 +7,7 @@ interface Props {
 }
 
 const NavbarItem = ({ slug, name }: Props) => (
-  <Link href={`/${slug}`} className="text-sm font-semibold leading-6 text-gray-900">
+  <Link href={`/category/${slug}`} className="text-sm font-semibold leading-6 text-gray-900">
     {name}
   </Link>
 );
