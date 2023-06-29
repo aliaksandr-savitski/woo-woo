@@ -1,6 +1,6 @@
 'use client';
 
-import { Image } from 'src/lib/woocommerce/WCTypes';
+import { Image } from 'src/lib/woocommerce/types';
 
 interface Props {
   images: Required<Image>[];

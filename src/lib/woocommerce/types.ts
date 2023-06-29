@@ -1,251 +1,323 @@
-export type Maybe<T> = T | null;
-
-export type Connection<T> = {
-  edges: Array<Edge<T>>;
-};
-
-export type Edge<T> = {
-  node: T;
-};
-
-export type Cart = Omit<ShopifyCart, 'lines'> & {
-  lines: CartItem[];
-};
-
-export type CartItem = {
-  id: string;
-  quantity: number;
-  cost: {
-    totalAmount: Money;
-  };
-  merchandise: {
-    id: string;
-    title: string;
-    selectedOptions: {
-      name: string;
-      value: string;
-    }[];
-    product: Product;
-  };
-};
-
-export type Collection = ShopifyCollection & {
-  path: string;
-};
-
-export type Image = {
-  url: string;
-  altText: string;
-  width: number;
-  height: number;
-};
-
-export type Menu = {
-  title: string;
-  path: string;
-};
-
-export type Money = {
-  amount: string;
-  currencyCode: string;
-};
-
-export type Page = {
-  id: string;
-  title: string;
-  handle: string;
-  body: string;
-  bodySummary: string;
-  seo?: SEO;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type Product = Omit<WooCommerceProduct, 'variants' | 'images'> & {
-  variants: ProductVariant[];
-  images: Image[];
-};
-
-export type ProductOption = {
-  id: string;
-  name: string;
-  values: string[];
-};
-
-export type ProductVariant = {
-  id: string;
-  title: string;
-  availableForSale: boolean;
-  selectedOptions: {
-    name: string;
-    value: string;
-  }[];
-  price: Money;
-};
-
-export type SEO = {
-  title: string;
-  description: string;
-};
-
-export type ShopifyCart = {
-  id: string;
-  checkoutUrl: string;
-  cost: {
-    subtotalAmount: Money;
-    totalAmount: Money;
-    totalTaxAmount: Money;
-  };
-  lines: Connection<CartItem>;
-  totalQuantity: number;
-};
-
-export type ShopifyCollection = {
-  handle: string;
-  title: string;
-  description: string;
-  seo: SEO;
-  updatedAt: string;
-};
-
-export type WooCommerceProduct = {
-  id: string;
+export interface Category {
+  id: number;
   name: string;
   slug: string;
-};
+  parent: number;
+  description: string;
+  display: string;
+  image: Image;
+  menu_order: number;
+  count: number;
+  _links: Links;
+}
 
-export type ShopifyCartOperation = {
-  data: {
-    cart: ShopifyCart;
-  };
-  variables: {
-    cartId: string;
-  };
-};
+export interface Collection {
+  href: string;
+}
 
-export type ShopifyCreateCartOperation = {
-  data: { cartCreate: { cart: ShopifyCart } };
-};
+export interface Dimensions {
+  length: string;
+  width: string;
+  height: string;
+}
 
-export type ShopifyAddToCartOperation = {
-  data: {
-    cartLinesAdd: {
-      cart: ShopifyCart;
-    };
-  };
-  variables: {
-    cartId: string;
-    lines: {
-      merchandiseId: string;
-      quantity: number;
-    }[];
-  };
-};
+export interface MetaDatum {
+  id: number;
+  key: string;
+  value: string;
+}
 
-export type ShopifyRemoveFromCartOperation = {
-  data: {
-    cartLinesRemove: {
-      cart: ShopifyCart;
-    };
-  };
-  variables: {
-    cartId: string;
-    lineIds: string[];
-  };
-};
+export interface Product {
+  id: number;
+  name: string;
+  slug: string;
+  permalink: string;
+  date_created: Date;
+  date_created_gmt: Date;
+  date_modified: Date;
+  date_modified_gmt: Date;
+  type: 'simple' | 'variable' | 'grouped';
+  status: string;
+  featured: boolean;
+  catalog_visibility: string;
+  description: string;
+  short_description: string;
+  sku: string;
+  price: string;
+  regular_price: string;
+  sale_price: string;
+  date_on_sale_from: null;
+  date_on_sale_from_gmt: null;
+  date_on_sale_to: null;
+  date_on_sale_to_gmt: null;
+  price_html: string;
+  on_sale: boolean;
+  purchasable: boolean;
+  total_sales: number;
+  virtual: boolean;
+  downloadable: boolean;
+  downloads: any[];
+  download_limit: number;
+  download_expiry: number;
+  external_url: string;
+  button_text: string;
+  tax_status: string;
+  tax_class: string;
+  manage_stock: boolean;
+  stock_quantity: null;
+  in_stock: boolean;
+  backorders: string;
+  backorders_allowed: boolean;
+  backordered: boolean;
+  sold_individually: boolean;
+  weight: string;
+  dimensions: Dimensions;
+  shipping_required: boolean;
+  shipping_taxable: boolean;
+  shipping_class: string;
+  shipping_class_id: number;
+  reviews_allowed: boolean;
+  average_rating: string;
+  rating_count: number;
+  related_ids: number[];
+  upsell_ids: number[];
+  cross_sell_ids: number[];
+  parent_id: number;
+  purchase_note: string;
+  categories: Partial<Category>[];
+  tags: any[];
+  images: Image[];
+  attributes: Attribute[];
+  default_attributes: any[];
+  variations: number[];
+  grouped_products: any[];
+  menu_order: number;
+  meta_data: MetaDatum[];
+  _links: Links;
+}
 
-export type ShopifyUpdateCartOperation = {
-  data: {
-    cartLinesUpdate: {
-      cart: ShopifyCart;
-    };
-  };
-  variables: {
-    cartId: string;
-    lines: {
-      id: string;
-      merchandiseId: string;
-      quantity: number;
-    }[];
-  };
-};
+interface LineItem {
+  id: number;
+  name: string;
+  product_id: number;
+  variation_id: number;
+  quantity: number;
+  tax_class: string;
+  subtotal: string;
+  subtotal_tax: string;
+  total: string;
+  total_tax: string;
+  taxes: any[];
+  meta_data: MetaData[];
+  sku: string;
+  price: number;
+}
+interface ShippingLine {
+  id: number;
+  method_title: string;
+  method_id: string;
+  instance_id: string;
+  total: string;
+  total_tax: string;
+  taxes: any[];
+  meta_data: any[];
+}
 
-export type ShopifyCollectionOperation = {
-  data: {
-    collection: ShopifyCollection;
-  };
-  variables: {
-    handle: string;
-  };
-};
+interface Meta_Data_Line_Item {
+  // built from my own object sending in, disregard if necessary!
+  key: string;
+  value: string;
+}
+interface Cart {
+  // built from my own object sending in, disregard if necessary!
+  payment_method: string;
+  payment_method_title: string;
+  billing: Billing;
+  shipping: Shipping;
+  line_items: Array<LineItem>;
+  shipping_lines: Array<ShippingLine>;
+  customer_id: number;
+  meta_data: Array<Meta_Data_Line_Item>;
+  set_paid: false;
+}
 
-export type ShopifyCollectionProductsOperation = {
-  data: {
-    collection: {
-      products: Connection<WooCommerceProduct>;
-    };
-  };
-  variables: {
-    handle: string;
-    reverse?: boolean;
-    sortKey?: string;
-  };
-};
+interface Attribute {
+  id: number;
+  name: string;
+  position: number;
+  visible: boolean;
+  variation: boolean;
+  options: string[];
+}
 
-export type ShopifyCollectionsOperation = {
-  data: {
-    collections: Connection<ShopifyCollection>;
-  };
-};
+export interface Image {
+  id: number;
+  date_created: Date;
+  date_created_gmt: Date;
+  date_modified: Date;
+  date_modified_gmt: Date;
+  src: string;
+  name: string;
+  alt: string;
+  position: number;
+}
 
-export type ShopifyMenuOperation = {
-  data: {
-    menu?: {
-      items: {
-        title: string;
-        url: string;
-      }[];
-    };
-  };
-  variables: {
-    handle: string;
-  };
-};
+// export interface Attribute {
+// 	id: number;
+// 	name: string;
+// 	option: string;
+// }
 
-export type ShopifyPageOperation = {
-  data: { pageByHandle: Page };
-  variables: { handle: string };
-};
+export interface MetaData {
+  id: number;
+  key: string;
+  value: string;
+}
 
-export type ShopifyPagesOperation = {
-  data: {
-    pages: Connection<Page>;
-  };
-};
+export interface Up {
+  href: string;
+}
 
-export type WooCommerceProductOperation = {
-  data: { product: WooCommerceProduct };
-  variables: {
-    handle: string;
-  };
-};
+export interface Customer {
+  id: number;
+  date_created: Date;
+  date_created_gmt: Date;
+  date_modified: Date;
+  date_modified_gmt: Date;
+  email: string;
+  first_name: string;
+  last_name: string;
+  role: string;
+  username: string;
+  billing: Billing;
+  shipping: Shipping;
+  is_paying_customer: boolean;
+  avatar_url: string;
+  meta_data: MetaData[];
+  _links: Links;
+}
 
-export type WooCommerceProductRecommendationsOperation = {
-  data: {
-    productRecommendations: WooCommerceProduct[];
-  };
-  variables: {
-    productId: string;
-  };
-};
+export interface Order {
+  id: number;
+  parent_id: number;
+  number: string;
+  order_key: string;
+  created_via: string;
+  version: string;
+  status: string;
+  currency: string;
+  date_created: Date;
+  date_created_gmt: Date;
+  date_modified: Date;
+  date_modified_gmt: Date;
+  discount_total: string;
+  discount_tax: string;
+  shipping_total: string;
+  shipping_tax: string;
+  cart_tax: string;
+  total: string;
+  total_tax: string;
+  prices_include_tax: boolean;
+  customer_id: number;
+  customer_ip_address: string;
+  customer_user_agent: string;
+  customer_note: string;
+  billing: Billing;
+  shipping: Shipping;
+  payment_method: string;
+  payment_method_title: string;
+  transaction_id: string;
+  date_paid?: any;
+  date_paid_gmt?: any;
+  date_completed?: any;
+  date_completed_gmt?: any;
+  cart_hash: string;
+  meta_data: any[];
+  line_items: LineItem[];
+  tax_lines: any[];
+  shipping_lines: ShippingLine[];
+  fee_lines: any[];
+  coupon_lines: any[];
+  refunds: any[];
+  _links: Links;
+}
 
-export type WooCommerceProductsOperation = {
-  data: {
-    products: Connection<WooCommerceProduct>;
-  };
-  variables: {
-    query?: string;
-    reverse?: boolean;
-    sortKey?: string;
-  };
-};
+export interface Links {
+  self: Self[];
+  collection: Collection[];
+  up: Up[];
+}
+
+export interface Billing {
+  first_name: string;
+  last_name: string;
+  company: string;
+  address_1: string;
+  address_2: string;
+  city: string;
+  state: string;
+  postcode: string;
+  country: string;
+  email: string;
+  phone: string;
+}
+
+export interface Shipping {
+  first_name: string;
+  last_name: string;
+  company: string;
+  address_1: string;
+  address_2: string;
+  city: string;
+  state: string;
+  postcode: string;
+  country: string;
+  email: string;
+}
+
+export interface Variation {
+  id: number;
+  date_created: Date;
+  date_created_gmt: Date;
+  date_modified: Date;
+  date_modified_gmt: Date;
+  description: string;
+  permalink: string;
+  sku: string;
+  price: string;
+  regular_price: string;
+  sale_price: string;
+  date_on_sale_from?: any;
+  date_on_sale_from_gmt?: any;
+  date_on_sale_to?: any;
+  date_on_sale_to_gmt?: any;
+  on_sale: boolean;
+  visible: boolean;
+  purchasable: boolean;
+  virtual: boolean;
+  downloadable: boolean;
+  downloads: any[];
+  download_limit: number;
+  download_expiry: number;
+  tax_status: string;
+  tax_class: string;
+  manage_stock: boolean;
+  stock_quantity?: any;
+  in_stock: boolean;
+  backorders: string;
+  backorders_allowed: boolean;
+  backordered: boolean;
+  weight: string;
+  dimensions: Dimensions;
+  shipping_class: string;
+  shipping_class_id: number;
+  image: Image;
+  attributes: Attribute[];
+  menu_order: number;
+  meta_data: MetaData[];
+  _links: Links;
+}
+
+export interface Self {
+  href: string;
+}

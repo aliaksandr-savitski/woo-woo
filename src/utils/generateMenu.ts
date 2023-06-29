@@ -1,4 +1,4 @@
-import { Category } from 'src/lib/woocommerce/WCTypes';
+import { Category } from 'src/lib/woocommerce/types';
 import { MenuItem } from 'src/types';
 
 const UNCATEGORIZED_CATEGORY_SLUG = 'uncategorized';

@@ -1,4 +1,4 @@
-import { Product } from 'src/lib/woocommerce/WCTypes';
+import { Product } from 'src/lib/woocommerce/types';
 import CategoryListItem from './CategoryListItem';
 
 const CategoryList = ({ products }: { products: Product[] }) => (

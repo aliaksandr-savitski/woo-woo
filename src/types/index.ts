@@ -1,4 +1,4 @@
-import { Category } from 'src/lib/woocommerce/WCTypes';
+import { Category } from 'src/lib/woocommerce/types';
 
 export type User = {
   id: number;

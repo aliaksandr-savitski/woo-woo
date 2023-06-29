@@ -8,7 +8,7 @@ import ProductInfo from 'src/app/product/components/ProductInfo';
 import { HIDDEN_PRODUCT_TAG } from 'src/lib/constants';
 import { getProduct } from 'src/app/products/api/getProduct';
 import { storeSettings } from 'src/lib/woocommerce/store-settings';
-import { Category } from 'src/lib/woocommerce/WCTypes';
+import { Category } from 'src/lib/woocommerce/types';
 
 export const runtime = 'edge';
 

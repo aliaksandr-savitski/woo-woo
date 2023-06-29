@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Product } from 'src/lib/woocommerce/WCTypes';
+import { Product } from 'src/lib/woocommerce/types';
 
 interface Props {
   product: Product;

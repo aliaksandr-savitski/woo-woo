@@ -2,7 +2,7 @@
 
 import ProductsListItem from './ProductsListItem';
 
-import { Product } from 'src/lib/woocommerce/WCTypes';
+import { Product } from 'src/lib/woocommerce/types';
 
 interface Props {
   products: Product[];
