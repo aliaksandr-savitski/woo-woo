@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation';
 import { startTransition, useState } from 'react';
-import CloseIcon from 'src/app/components/icons/close';
-import LoadingDots from 'src/app/components/loading-dots';
+import CloseIcon from 'src/components/icons/close';
+import LoadingDots from 'src/components/loading-dots';
 
 import clsx from 'clsx';
 import type { CartItem } from 'src/lib/woocommerce/types';

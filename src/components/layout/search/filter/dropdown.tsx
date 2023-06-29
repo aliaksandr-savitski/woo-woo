@@ -3,7 +3,7 @@
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
-import Caret from 'src/app/components/icons/caret-right';
+import Caret from 'src/components/icons/caret-right';
 import type { ListItem } from '.';
 import { FilterItem } from './item';
 

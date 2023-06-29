@@ -1,8 +1,8 @@
 import { Inter } from 'next/font/google';
 import { ReactNode, Suspense } from 'react';
 
-import Navbar from 'src/app/components/layout/Navbar';
-import Footer from 'src/app/components/layout/Footer';
+import Navbar from 'src/components/layout/Navbar';
+import Footer from 'src/components/layout/Footer';
 
 import './globals.css';
 

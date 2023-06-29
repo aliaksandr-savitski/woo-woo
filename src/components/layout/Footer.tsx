@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
-import GitHubIcon from 'src/app/components/icons/github';
-import LogoIcon from 'src/app/components/icons/logo';
-import VercelIcon from 'src/app/components/icons/vercel';
+import GitHubIcon from 'src/components/icons/github';
+import LogoIcon from 'src/components/icons/logo';
+import VercelIcon from 'src/components/icons/vercel';
 
 const { SITE_NAME } = process.env;
 

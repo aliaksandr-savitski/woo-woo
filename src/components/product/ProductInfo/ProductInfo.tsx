@@ -1,5 +1,5 @@
-import Prose from 'src/app/components/prose';
-import Reviews from 'src/app/components/product/Reviews';
+import Prose from 'src/components/prose';
+import Reviews from 'src/components/product/Reviews';
 import { Product } from 'src/lib/woocommerce/WCTypes';
 
 interface Props {
@@ -48,7 +48,7 @@ const ProductInfo = ({ product, currency }: Props) => {
                    * TBD: FIX COLORS
                    */}
 
-                  {colorVariants.options.map((color, index) => (
+                  {colorVariants.options.map((color) => (
                     <label
                       className="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 ring-gray-400 focus:outline-none"
                       key={color}

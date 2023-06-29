@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import SearchIcon from 'src/app/components/icons/search';
+import SearchIcon from 'src/components/icons/search';
 import { createUrl } from 'src/lib/utils';
 
 export default function Search() {

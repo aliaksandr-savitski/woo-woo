@@ -2,8 +2,8 @@ import { useRouter } from 'next/navigation';
 import { startTransition, useState } from 'react';
 
 import clsx from 'clsx';
-import MinusIcon from 'src/app/components/icons/minus';
-import PlusIcon from 'src/app/components/icons/plus';
+import MinusIcon from 'src/components/icons/minus';
+import PlusIcon from 'src/components/icons/plus';
 import type { CartItem } from 'src/lib/woocommerce/types';
 import LoadingDots from '../loading-dots';
 

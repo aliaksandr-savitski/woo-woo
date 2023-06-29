@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useCookies } from 'react-cookie';
 
-import CartIcon from 'src/app/components/icons/cart';
+import CartIcon from 'src/components/icons/cart';
 import CartModal from './modal';
 
 import type { Cart } from 'src/lib/woocommerce/types';
