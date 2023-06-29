@@ -3,8 +3,8 @@ import { notFound } from 'next/navigation';
 
 import BreadCrumbs from 'src/components/BreadCrumbs';
 import { BreadCrumb } from 'src/components/BreadCrumbs';
-import ProductGallery from 'src/components/product/ProductGallery';
-import ProductInfo from 'src/components/product/ProductInfo';
+import ProductGallery from 'src/app/product/components/ProductGallery';
+import ProductInfo from 'src/app/product/components/ProductInfo';
 import { HIDDEN_PRODUCT_TAG } from 'src/lib/constants';
 import { getProduct } from 'src/app/products/api/getProduct';
 import { storeSettings } from 'src/lib/woocommerce/store-settings';

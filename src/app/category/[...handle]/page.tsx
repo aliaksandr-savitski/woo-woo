@@ -4,8 +4,8 @@ import { notFound } from 'next/navigation';
 
 import { getCategoryProducts } from 'src/services/wooCommerceApi/getCategoryProducts';
 
-import CategoryPageHeader from './CategoryPageHeader';
-import CategoryList from './CategoryList';
+import CategoryPageHeader from '../components/CategoryPageHeader';
+import CategoryList from '../components/CategoryList';
 
 export const runtime = 'edge';
 

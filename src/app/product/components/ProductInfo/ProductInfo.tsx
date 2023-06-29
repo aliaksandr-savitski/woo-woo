@@ -1,6 +1,6 @@
-import Prose from 'src/components/prose';
-import Reviews from 'src/components/product/Reviews';
+import Prose from 'src/components/Prose';
 import { Product } from 'src/lib/woocommerce/WCTypes';
+import Reviews from '../Reviews';
 
 interface Props {
   product: Product;

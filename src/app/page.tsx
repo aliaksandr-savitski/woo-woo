@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { getProducts } from 'src/app/products/api/getProducts';
-import ProductsList from 'src/app/products/components/ProductsList';
+import ProductsList from 'src/components/ProductsList';
 
 export const runtime = 'edge';
 
