@@ -6,9 +6,9 @@ interface Props {
 }
 
 const NavbarLogo = ({ companyName, imageUrl }: Props) => (
-  <Link href="/" className="-m-1.5 p-1.5">
+  <Link href="/">
     <span className="sr-only">{companyName}</span>
-    <img className="h-8 w-auto" src={imageUrl} alt={`${companyName} logo image`} />
+    <img className="h-8 w-auto" src={imageUrl} alt={`${companyName} logo`} />
   </Link>
 );
 

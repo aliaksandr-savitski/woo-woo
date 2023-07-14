@@ -1,41 +1,74 @@
-import { Category } from 'src/lib/woocommerce/types';
-import { MenuItem } from 'src/types';
+import { WPMenuItem } from 'src/types/wordpress';
+import { Navigation, NavigationCategory } from 'src/types/navigation';
 
-const UNCATEGORIZED_CATEGORY_SLUG = 'uncategorized';
+const generateCategories = (menuItems: WPMenuItem[]) =>
+  menuItems
+    .filter(({ parent, status, id }) => {
+      const isRootItem = parent === 0 && status === 'publish';
+      const hasSections = menuItems.find(({ parent: menuItemParentId }) => menuItemParentId === id);
 
-const generateHref = (categories: Category[], parent: Number = 0, hrefBase: string) => {
-  const parentCategory = categories.find((item) => item.id === parent);
+      return isRootItem && hasSections;
+    })
+    .map(({ id, title, url, object_id }) => ({
+      id,
+      name: title.rendered,
+      href: generateHref(url, object_id),
+      featured: [],
+      sections: []
+    }));
 
-  let href = `${parentCategory ? parentCategory.slug : '/category'}/${hrefBase}`;
+const mapSectionsToCategory = (category: NavigationCategory, menuItems: WPMenuItem[]) => {
+  const sections = menuItems
+    .filter(({ parent, status }) => parent === category.id && status === 'publish')
+    .map((section) => {
+      const filteredItems = menuItems.filter(
+        ({ parent, status }) => parent === section.id && status === 'publish'
+      );
 
-  // START RECURSION
-  if (parentCategory && parent !== 0) {
-    href = generateHref(categories, parentCategory?.parent, href);
-  }
+      const items = filteredItems
+        ? filteredItems.map(({ object_id, title, url }) => ({
+            name: title.rendered,
+            href: generateHref(url, object_id)
+          }))
+        : [];
 
-  return href;
+      return {
+        id: section.id,
+        name: section.title.rendered,
+        items
+      };
+    });
+
+  category.sections = sections || [];
+  category.featured = [];
+
+  return category;
 };
 
-export const generateMenu = (categories: Category[], parent: Number = 0): MenuItem[] | [] => {
-  const filteredCategories = categories.filter(
-    (category) => category.parent === parent && category.slug !== UNCATEGORIZED_CATEGORY_SLUG
-  );
+const generatePages = (menuItems: WPMenuItem[]) =>
+  menuItems
+    .filter(({ parent, status, id }) => {
+      const isRootItem = parent === 0 && status === 'publish';
+      const hasSections = menuItems.find(({ parent: menuItemParentId }) => menuItemParentId === id);
 
-  if (filteredCategories.length === 0) {
-    return [];
-  }
+      return isRootItem && !hasSections;
+    })
+    .map(({ object_id, title, url }) => ({
+      name: title.rendered,
+      href: generateHref(url, object_id)
+    }));
 
-  return filteredCategories.map(({ id, name, slug, image, parent }) => {
-    const subcategories = generateMenu(categories, id);
-    const href = generateHref(categories, parent, slug);
+export const generateMenu = (wpMenuItems: WPMenuItem[]): Navigation => {
+  const categories = generateCategories(wpMenuItems);
+  const pages = generatePages(wpMenuItems);
 
-    return {
-      id,
-      name,
-      slug,
-      image,
-      href,
-      subcategories: subcategories.length > 0 ? subcategories : undefined
-    };
-  });
+  categories.map((category) => mapSectionsToCategory(category, wpMenuItems));
+
+  return { categories, pages };
+};
+
+const generateHref = (url: string, id: string | number): string => {
+  const regex = new RegExp(`${process.env.WP_BASE_URL}(/[a-z,-]*)`);
+  const uri = url.replace(regex, '');
+  return `/category/${id}/${uri}`;
 };

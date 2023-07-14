@@ -15,29 +15,31 @@ const ProductGallery = ({ images }: Props) => (
         className="h-full w-full object-cover object-center"
       />
     </div>
-    <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-      <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-        <img
-          src={images[1].src}
-          alt={images[1].alt}
-          className="h-full w-full object-cover object-center"
-        />
-      </div>
-      <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-        <img
-          src={images[2].src}
-          alt={images[2].alt}
-          className="h-full w-full object-cover object-center"
-        />
-      </div>
-    </div>
-    <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-      <img
-        src={images[3].src}
-        alt={images[3].alt}
-        className="h-full w-full object-cover object-center"
-      />
-    </div>
+    {images.length > 1 ? (
+      <>
+        <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
+          {images.slice(1, 2).map((image) => (
+            <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+              <img
+                key={image.src}
+                src={image.src}
+                alt={image.alt}
+                className="h-full w-full object-cover object-center"
+              />
+            </div>
+          ))}
+        </div>
+        {images[3] ? (
+          <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+            <img
+              src={images[3].src}
+              alt={images[3].alt}
+              className="h-full w-full object-cover object-center"
+            />
+          </div>
+        ) : null}
+      </>
+    ) : null}
   </div>
 );
 

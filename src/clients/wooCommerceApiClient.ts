@@ -1,4 +1,4 @@
-import WooCommerceRestApi from '@woocommerce/woocommerce-rest-api';
+import WooCommerceRestApi, { WooCommerceRestApiVersion } from '@woocommerce/woocommerce-rest-api';
 
 const {
   WOOCOMMERCE_API_URL,
@@ -8,8 +8,8 @@ const {
 } = process.env;
 
 export const wooCommerceApiClient = new WooCommerceRestApi({
-  url: WOOCOMMERCE_API_URL,
-  consumerKey: WOOCOMMERCE_API_CONSUMER_KEY,
-  consumerSecret: WOOCOMMERCE_API_SECRET,
-  version: WOOCOMMERCE_API_VERSION
+  url: WOOCOMMERCE_API_URL as string,
+  consumerKey: WOOCOMMERCE_API_CONSUMER_KEY as string,
+  consumerSecret: WOOCOMMERCE_API_SECRET as string,
+  version: WOOCOMMERCE_API_VERSION as WooCommerceRestApiVersion
 });

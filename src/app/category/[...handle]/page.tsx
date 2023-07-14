@@ -2,7 +2,8 @@ import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { getCategoryProducts } from 'src/services/wooCommerceApi/getCategoryProducts';
+import { getCategory } from 'src/services/getCategory';
+import { getCategoryProducts } from 'src/services/getCategoryProducts';
 
 import CategoryPageHeader from '../components/CategoryPageHeader';
 import CategoryList from '../components/CategoryList';
@@ -14,16 +15,15 @@ export async function generateMetadata({
 }: {
   params: { handle: string };
 }): Promise<Metadata> {
-  const [categorySlug] = params.handle.slice(-1);
+  const [categoryId] = params.handle.slice(0, 1);
 
-  if (!categorySlug || typeof categorySlug !== 'string') {
+  if (!categoryId || typeof categoryId !== 'string') {
     return notFound();
   }
 
-  const products = await getCategoryProducts(categorySlug);
-  const category = products[0]?.categories.find((category) => category.slug === categorySlug);
+  const category = await getCategory(categoryId);
 
-  if (!products || !category) return notFound();
+  if (!category) return notFound();
 
   const { src } = category.image || {};
 
@@ -46,20 +46,21 @@ export async function generateMetadata({
 }
 
 const CategoryPage = async ({ params }: { params: { handle: string[] } }) => {
-  const [categorySlug] = params.handle.slice(-1);
+  const [categoryId] = params.handle.slice(0, 1);
 
-  if (!categorySlug || typeof categorySlug !== 'string') {
+  if (!categoryId || typeof categoryId !== 'string') {
     return notFound();
   }
 
-  const products = await getCategoryProducts(categorySlug);
-  const category = products[0]?.categories.find((category) => category.slug === categorySlug);
+  const fetchDataPromises = Promise.all([getCategory(categoryId), getCategoryProducts(categoryId)]);
 
-  if (!products || !category) return notFound();
+  const [category, products] = await fetchDataPromises;
+
+  if (!products.length || !category) return notFound();
 
   return (
     <div className=" mx-auto max-w-7xl items-center justify-between px-6 pb-16 lg:px-8 lg:pb-24">
-      <CategoryPageHeader title={category.name as string} />
+      <CategoryPageHeader title={category.name} />
 
       <Suspense>
         <CategoryList products={products} />

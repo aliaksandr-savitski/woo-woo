@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
+    "@heroicons/react": "^2.0.18",
     "@vercel/og": "^0.5.4",
     "@woocommerce/woocommerce-rest-api": "^1.0.1",
     "axios": "^1.4.0",
@@ -32,7 +33,6 @@
     "next": "13.4.6",
     "react": "18.2.0",
     "react-cookie": "^4.1.1",
-    "react-detect-click-outside": "^1.1.7",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
@@ -42,7 +42,7 @@
     "@types/node": "20.1.0",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
-    "@types/tailwindcss": "^3.1.0",
+    "@types/woocommerce__woocommerce-rest-api": "^1.0.2",
     "@vercel/git-hooks": "^1.0.0",
     "autoprefixer": "^10.4.14",
     "eslint": "^8.40.0",

@@ -4,10 +4,15 @@ import { wooCommerceApiClient } from 'src/clients/wooCommerceApiClient';
 
 export async function GET(req: NextRequest): Promise<Response> {
   try {
-    const { status, statusText, data } = await wooCommerceApiClient.get('products');
+    const { status, statusText, data } = await wooCommerceApiClient.get(
+      `products${req.nextUrl.search}`,
+      {
+        per_page: 30
+      }
+    );
 
     return NextResponse.json({ status, statusText, data });
   } catch (error) {
-    return NextResponse.json(error);
+    throw new Error(error.message);
   }
 }

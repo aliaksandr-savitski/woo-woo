@@ -12,6 +12,21 @@ import { Category } from 'src/lib/woocommerce/types';
 
 export const runtime = 'edge';
 
+const generateBreadcrumbs = (categories: Category[]) =>
+  categories.reduce<BreadCrumb[]>(
+    (accumulator, nextValue) =>
+      !!accumulator.length && accumulator[accumulator.length - 1]?.href
+        ? [
+            ...accumulator,
+            {
+              ...nextValue,
+              href: `${accumulator[accumulator.length - 1]?.href || ''}/${nextValue.slug}`
+            }
+          ]
+        : [{ ...nextValue, href: `/${nextValue.slug}` }],
+    []
+  );
+
 export async function generateMetadata({
   params
 }: {
@@ -80,19 +95,7 @@ export default async function ProductPage({ params }: { params: { handle: string
     }
   };
 
-  const breadcrubs: BreadCrumb[] = product.categories.reduce<Partial<Category>[]>(
-    (accumulator: BreadCrumb[], nextValue: Partial<Category>) =>
-      !!accumulator.length && accumulator[accumulator.length - 1]?.href
-        ? [
-            ...accumulator,
-            {
-              ...nextValue,
-              href: `${accumulator[accumulator.length - 1].href}/${nextValue.slug}`
-            }
-          ]
-        : [{ ...nextValue, href: `/${nextValue.slug}` }],
-    []
-  );
+  const breadcrubs = generateBreadcrumbs(product.categories as Category[]);
 
   return (
     <div className="bg-white">
@@ -104,7 +107,7 @@ export default async function ProductPage({ params }: { params: { handle: string
       />
       <div className="pt-6">
         <BreadCrumbs items={breadcrubs} />
-        <ProductGallery images={product.images} />
+        {product.images && <ProductGallery images={product.images} />}
         <ProductInfo product={product} currency={storeSettings.currency} />
       </div>
     </div>

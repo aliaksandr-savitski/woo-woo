@@ -6,7 +6,21 @@ export type User = {
   email: string;
 };
 
-export type MenuItem = Pick<Category, 'id' | 'name' | 'slug' | 'image'> & {
-  href: string;
-  subcategories?: MenuItem[];
-};
+export class ErrorResponse {
+  constructor(public message: string, public status: number) {}
+}
+
+export class DbConcurrencyError implements ErrorResponse {
+  constructor(public message: string, public status: number) {}
+}
+
+export class InternalServerError implements ErrorResponse {
+  constructor(public message: string, public status: number) {}
+}
+
+export enum StatusCode {
+  Unauthorized = 401,
+  Forbidden = 403,
+  TooManyRequests = 429,
+  InternalServerError = 500
+}
