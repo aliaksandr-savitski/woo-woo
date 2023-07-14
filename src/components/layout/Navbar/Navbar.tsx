@@ -1,4 +1,6 @@
 'use client';
+
+import { useState } from 'react';
 // import Cart from 'components/cart';
 import { Navigation } from 'src/types/navigation';
 
@@ -7,13 +9,14 @@ import { NavItemWithFlyout, NavbarItem } from './NavbarItem';
 import NavbarLogo from './NavbarLogo';
 import MobileMenu from './MobileMenu';
 import MobileMenuToggler from './MobileMenu/MobileMenuToggler';
-import { MobileMenuProvider } from './MobileMenu/MobileMenuProvider';
 
 interface Props {
   menu: Navigation;
 }
 
 const Navbar = async ({ menu }: Props) => {
+  const [open, setOpen] = useState(false);
+
   const data = {
     company: {
       name: 'Test Company',
@@ -22,8 +25,9 @@ const Navbar = async ({ menu }: Props) => {
   };
 
   return (
-    <MobileMenuProvider>
-      <MobileMenuToggler />
+    <>
+      <MobileMenuToggler setOpen={setOpen} />
+      <MobileMenu isOpen={open} setOpen={setOpen} navigation={menu} />
 
       <div className="ml-4 flex lg:ml-0">
         <NavbarLogo imageUrl={data.company.imageUrl} companyName={data.company.name} />
@@ -40,9 +44,7 @@ const Navbar = async ({ menu }: Props) => {
           ))}
         </div>
       </Popover.Group>
-
-      {/* <MobileMenu menuItems={menu} /> */}
-    </MobileMenuProvider>
+    </>
   );
 };
 
