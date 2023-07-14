@@ -1,37 +1,23 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fcommerce&project-name=commerce&repo-name=commerce&demo-title=Next.js%20Commerce&demo-url=https%3A%2F%2Fdemo.vercel.store&demo-image=https%3A%2F%2Fbigcommerce-demo-asset-ksvtgfvnd.vercel.app%2Fbigcommerce.png&env=SHOPIFY_STOREFRONT_ACCESS_TOKEN,SHOPIFY_STORE_DOMAIN,SITE_NAME,TWITTER_CREATOR,TWITTER_SITE)
+# Next.js WooCommerce
 
-# Next.js Commerce
-
-A Next.js 13 and App Router-ready ecommerce template featuring:
+This is a Next.js 13 template for WooCommerce web store, inspired by [Vercel Commerce](https://github.com/vercel/commerce). It was reworked to change the view of the online shop to be more standart ecommerce website, but keeping most important features as a starting point:
 
 - Next.js App Router
 - Optimized for SEO using Next.js's Metadata
 - React Server Components (RSCs) and Suspense
-- Route Handlers for mutations
+- ~~Route Handlers for mutations~~
 - Edge runtime
 - New fetching and caching paradigms
 - Dynamic OG images
 - Styling with Tailwind CSS
-- Checkout and payments with Shopify
-- Automatic light/dark mode based on system settings
-
-> Note: Looking for Next.js Commerce v1? View the [code](https://github.com/vercel/commerce/tree/v1), [demo](https://commerce-v1.vercel.store), and [release notes](https://github.com/vercel/commerce/releases/tag/v1)
-
-## Providers
-
-- Shopify (this repository)
-- [Saleor](https://github.com/saleor/nextjs-commerce) ([Demo](https://saleor-commerce.vercel.app/))
-- [Medusa](https://github.com/medusajs/vercel-commerce) ([Demo](https://medusa-nextjs-commerce.vercel.app/))
+- ~~Checkout and payments with WooCommerce~~
+- ~~Automatic light/dark mode based on system settings~~
 
 ## Running locally
 
-You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js Commerce. It's recommended you use [Vercel Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables) for this, but a `.env` file is all that is necessary.
+You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js WooCommerce, a `.env` file is all that is necessary.
 
 > Note: You should not commit your `.env` file or it will expose secrets that will allow others to control your Shopify store.
-
-1. Install Vercel CLI: `npm i -g vercel`
-2. Link local instance with Vercel and GitHub accounts (creates `.vercel` directory): `vercel link`
-3. Download your environment variables: `vercel env pull`
 
 ```bash
 pnpm install
@@ -40,9 +26,7 @@ pnpm dev
 
 Your app should now be running on [localhost:3000](http://localhost:3000/).
 
-## How to configure your Shopify store for Next.js Commerce
-
-Next.js Commerce requires a [paid Shopify plan](https://www.shopify.com/pricing). It will not work with a Shopify Starter plan.
+## How to configure your WordPress WooCommerce store for Next.js WooCommerce
 
 ### Add Shopify domain to an environment variable
 
@@ -79,33 +63,9 @@ Once installed, you'll need to create a `SHOPIFY_STOREFRONT_ACCESS_TOKEN` enviro
 1. If you ever need to reference the public access token again, you can navigate to `https://SHOPIFY_STORE_SUBDOMAIN.myshopify.com/admin/headless_storefronts`.
 </details>
 
-### Install a headless theme
+### Plugins that are used
 
-When using a headless Shopify setup, you normally don't want customers to access any of the theme pages except for checkout. However, you can't totally disable the theme and a lot of links will still point to the theme (e.g. links in emails, order details, plugins, checkout, etc.).
-
-To enable a seamless flow between your headless site and Shopify, you can install the [Shopify Headless Theme](https://github.com/instantcommerce/shopify-headless-theme).
-
-Follow the installation instructions and configure the theme with your headless site's values.
-
-<details>
-  <summary>Expand to view detailed walkthrough</summary>
-
-1. Download [Shopify Headless Theme](https://github.com/instantcommerce/shopify-headless-theme).
-   ![Download Shoify Headless Theme](https://user-images.githubusercontent.com/446260/233220560-9f3f5ab0-ffb4-4305-b4ee-2c9d33eea90f.jpg)
-1. Navigate to `https://SHOPIFY_STORE_SUBDOMAIN.myshopify.com/admin/themes`.
-1. Click `Add theme`, then `Upload zip file`.
-   ![Upload zip file](https://user-images.githubusercontent.com/446260/233220561-7a53809e-0d95-45eb-b52f-3a52e3663a9c.jpg)
-1. Select the downloaded zip file from above, and click the green `Upload file` button.
-   ![Select and upload file](https://user-images.githubusercontent.com/446260/233220563-135fb9f7-2921-4189-8f17-3b1cc15c0ea6.jpg)
-1. Click `Customize`.
-   ![Customize theme](https://user-images.githubusercontent.com/446260/233220565-24b9c954-c18a-46f1-9db5-3d2a00040e48.jpg)
-1. Click `Theme settings` (ie. the paintbrush icon), expand the `STOREFRONT` section, enter your headless store domain, click the gray `Publish` button.
-   ![Set headless domain in theme settings](https://user-images.githubusercontent.com/446260/233220566-acaee14d-03f8-400d-a2a2-28e85eb5ecdc.jpg)
-1. Confirm the theme change by clicking the green `Save and publish` button.
-   ![Confirm save and publish](https://user-images.githubusercontent.com/446260/233220567-504d5bde-cfb9-426d-a264-f9a12d02af13.jpg)
-1. The headless theme should now be your current active theme.
-![Headless theme is current and active](https://user-images.githubusercontent.com/446260/233220569-63cab2b4-241b-4bf1-9b5b-451daaeceb91.jpg)
-</details>
+[Advanced Custom Fields (ACF)](https://wordpress.org/plugins/advanced-custom-fields/) - this plugin is needed to customize your menu and configure it in a way that theme works appropriately and can map menu items.
 
 ### Branding & Design
 
@@ -149,58 +109,19 @@ You can use Shopify's admin to customize these pages to match your brand and des
 
 </details>
 
-### Configure webhooks for on-demand incremental static regeneration (ISR)
-
-Coming soon.
-
-### Using Shopify as a CMS
-
-Next.js Commerce is fully powered by Shopify in a truly headless and data driven way.
-
 #### Products
-
-`https://SHOPIFY_STORE_SUBDOMAIN.myshopify.com/admin/products`
-
-Only `Active` products are shown. `Draft` products will not be shown until they are marked as `Active`.
-
-`Active` products can still be hidden and not seen by navigating the site, by adding a `nextjs-frontend-hidden` tag on the product. This tag will also tell search engines to not index or crawl the product. The product is still directly accessible via url. This feature is great for "secret" products you only want to people you share the url with.
-
-Product options and option combinations are driven from Shopify options and variants. When selecting options on the product detail page, other option and variant combinations will be visually validated and verified for availability, like Amazon does.
-
-Products that are active and "out of stock" are still shown on the site, but the ability to add the product to the cart is disabled.
 
 #### Collections
 
 `https://SHOPIFY_STORE_SUBDOMAIN.myshopify.com/admin/collections`
 
-Create whatever collections you want and configure them however you want. All available collections will show on the search page as filters on the left, with one exception...
-
-Any collection names that start with the word "hidden" will not show up on the headless front end. The Next.js Commerce theme comes pre-configured to look for two hidden collections. Collections were chosen for this over tags so that order of products could be controlled (collections allow for manual ordering).
-
-Create the following collections:
-
-- `Hidden: Homepage Featured Items` -- Products in this collection are displayed in the three featured blocks on the homepage.
-- `Hidden: Homepage Carousel` -- Products in this collection are displayed in the auto-scrolling carousel section on the homepage.
-
-![Shopify collections](https://user-images.githubusercontent.com/446260/233220543-81896a2b-7085-4abc-a4f1-ce321e08b953.jpg)
-
-![Shopify collection detail](https://user-images.githubusercontent.com/446260/233220544-ecd4c069-49fc-4a0b-8378-aa5e1b4b5257.jpg)
-
 #### Pages
-
-`https://SHOPIFY_STORE_SUBDOMAIN.myshopify.com/admin/pages`
-
-Next.js Commerce contains a dynamic `[page]` route. It will use the value to look for a corresponding page in Shopify. If a page is found, it will display its rich content using Tailwind's prose. If a page is not found, a 404 page is displayed.
-
-![Shopify pages](https://user-images.githubusercontent.com/446260/233221142-4dc3fa56-5256-4d84-b0a3-331ffb7d79b2.jpg)
-
-![Shopify page detail](https://user-images.githubusercontent.com/446260/233247700-cbeaf917-fb67-49e9-b9b9-5ee8cb188639.jpg)
 
 #### Navigation menus
 
 `https://SHOPIFY_STORE_SUBDOMAIN.myshopify.com/admin/menus`
 
-Next.js Commerce's header and footer navigation is pre-configured to be controlled by Shopify navigation menus. This means you have full control over what links go here. They can be to collections, pages, external links, and more.
+Next.js Commerce's header and footer navigation is pre-configured to be controlled by WordPress menus. This means you have full control over what links go here. They can be to collections, pages, external links, and more.
 
 Create the following navigation menus:
 
@@ -212,7 +133,3 @@ Create the following navigation menus:
 ![Shopify navigation menu detail](https://user-images.githubusercontent.com/446260/233220573-5f03a51f-4100-461f-a696-f085856e391b.jpg)
 
 #### SEO
-
-Shopify's products, collections, pages, etc. allow you to create custom SEO titles and descriptions. Next.js Commerce is pre-configured to display these custom values, but also comes with sensible default fallbacks if they are not provided.
-
-![Shopify SEO](https://user-images.githubusercontent.com/446260/233247701-0ff2a560-7949-4e6c-b3a8-8168ed6341f8.jpg)
