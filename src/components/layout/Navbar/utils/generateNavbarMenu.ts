@@ -58,17 +58,17 @@ const generatePages = (menuItems: WPMenuItem[]) =>
       href: generateHref(url, object_id)
     }));
 
-export const generateMenu = (wpMenuItems: WPMenuItem[]): Navigation => {
+const generateHref = (url: string, id: string | number): string => {
+  const regex = new RegExp(`${process.env.WP_BASE_URL}(/[a-z,-]*)`);
+  const uri = url.replace(regex, '');
+  return `/category/${id}/${uri}`;
+};
+
+export const generateNavbarMenu = (wpMenuItems: WPMenuItem[]): Navigation => {
   const categories = generateCategories(wpMenuItems);
   const pages = generatePages(wpMenuItems);
 
   categories.map((category) => mapSectionsToCategory(category, wpMenuItems));
 
   return { categories, pages };
-};
-
-const generateHref = (url: string, id: string | number): string => {
-  const regex = new RegExp(`${process.env.WP_BASE_URL}(/[a-z,-]*)`);
-  const uri = url.replace(regex, '');
-  return `/category/${id}/${uri}`;
 };

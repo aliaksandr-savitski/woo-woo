@@ -37,3 +37,15 @@ export interface Navigation {
   categories: NavigationCategory[];
   pages: NavigationPage[];
 }
+
+export interface FooterMenuSectionItem {
+  name: string;
+  id: string;
+  href: string;
+}
+
+export interface FooterMenuSection {
+  name: string;
+  id: string | number;
+  items: FooterMenuSectionItem[];
+}

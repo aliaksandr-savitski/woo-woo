@@ -6,7 +6,7 @@ import { Navigation } from 'src/types/navigation';
 
 import { Popover } from '@headlessui/react';
 import { NavItemWithFlyout, NavbarItem } from './NavbarItem';
-import NavbarLogo from './NavbarLogo';
+import Logo from 'src/components/Logo';
 import MobileMenu from './MobileMenu';
 import MobileMenuToggler from './MobileMenu/MobileMenuToggler';
 
@@ -17,20 +17,13 @@ interface Props {
 const Navbar = async ({ menu }: Props) => {
   const [open, setOpen] = useState(false);
 
-  const data = {
-    company: {
-      name: 'Test Company',
-      imageUrl: 'https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600'
-    }
-  };
-
   return (
     <>
       <MobileMenuToggler setOpen={setOpen} />
       <MobileMenu isOpen={open} setOpen={setOpen} navigation={menu} />
 
       <div className="ml-4 flex lg:ml-0">
-        <NavbarLogo imageUrl={data.company.imageUrl} companyName={data.company.name} />
+        <Logo />
       </div>
 
       {/* Flyout menus */}

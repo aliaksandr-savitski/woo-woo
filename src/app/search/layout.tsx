@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import Footer from 'src/app/components/layout/footer';
+import Footer from 'src/app/components/layout/Footer';
 import Collections from 'src/components/layout/search/collections';
 import FilterList from 'src/components/layout/search/filter';
 import { sorting } from 'src/lib/constants';
@@ -16,7 +16,6 @@ export default function SearchLayout({ children }: { children: React.ReactNode }
           <FilterList list={sorting} title="Sort by" />
         </div>
       </div>
-      {/* @ts-expect-error Server Component */}
       <Footer />
     </Suspense>
   );

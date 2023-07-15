@@ -3,7 +3,8 @@ import { ReactNode, Suspense } from 'react';
 
 import Navbar from 'src/components/layout/Navbar';
 import Footer from 'src/components/layout/Footer';
-import { generateMenu } from 'src/utils/generateMenu';
+import { generateNavbarMenu } from 'src/components/layout/Navbar/utils/generateNavbarMenu';
+import { generateFooterMenu } from 'src/components/layout/Footer/generateFooterMenu';
 import { getMenuItems } from 'src/services/getMenuItems';
 
 import './globals.css';
@@ -28,8 +29,13 @@ const inter = Inter({
 });
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
-  const menuItems = await getMenuItems(process.env.WP_HEADER_MENU_ID as string);
-  const menu = generateMenu(menuItems);
+  const [wpHeaderMenu, wpFooterMenu] = await Promise.all([
+    getMenuItems(process.env.WP_HEADER_MENU_ID as string),
+    getMenuItems(process.env.WP_FOOTER_MENU_ID as string)
+  ]);
+
+  const headerMenu = generateNavbarMenu(wpHeaderMenu);
+  const footerMenu = generateFooterMenu(wpFooterMenu);
 
   return (
     <html lang="pl" className={inter.variable}>
@@ -41,7 +47,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                 <div className="flex h-16 items-center">
                   <Suspense>
                     {/* @ts-expect-error Server Component */}
-                    <Navbar menu={menu} />
+                    <Navbar menu={headerMenu} />
                   </Suspense>
                 </div>
               </div>
@@ -52,10 +58,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <Suspense>
           <main>{children}</main>
         </Suspense>
-
         <Suspense>
           {/* @ts-expect-error Server Component */}
-          <Footer />
+          <Footer menu={footerMenu} />
         </Suspense>
       </body>
     </html>
