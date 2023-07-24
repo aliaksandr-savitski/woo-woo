@@ -27,7 +27,7 @@ const CategoryListItem = ({ product }: Props) => {
         <h3>{product.name}</h3>
         <Price amount={product.price} className="ml-4" />
       </div>
-      <p className="font-sm mt-1 italic leading-4 text-gray-400">3 sizes available</p>
+      <p className="font-sm mt-2 italic leading-4 text-gray-500">3 sizes available</p>
     </Link>
   );
 };

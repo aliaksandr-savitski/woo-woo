@@ -1,7 +1,7 @@
-import { WPMenuItem } from 'src/types/wordpress';
+import { WpMenuItem } from 'src/types/wordpress';
 import { Navigation, NavigationCategory } from 'src/types/navigation';
 
-const generateCategories = (menuItems: WPMenuItem[]) =>
+const generateCategories = (menuItems: WpMenuItem[]) =>
   menuItems
     .filter(({ parent, status, id }) => {
       const isRootItem = parent === 0 && status === 'publish';
@@ -17,7 +17,7 @@ const generateCategories = (menuItems: WPMenuItem[]) =>
       sections: []
     }));
 
-const mapSectionsToCategory = (category: NavigationCategory, menuItems: WPMenuItem[]) => {
+const mapSectionsToCategory = (category: NavigationCategory, menuItems: WpMenuItem[]) => {
   const sections = menuItems
     .filter(({ parent, status }) => parent === category.id && status === 'publish')
     .map((section) => {
@@ -45,7 +45,7 @@ const mapSectionsToCategory = (category: NavigationCategory, menuItems: WPMenuIt
   return category;
 };
 
-const generatePages = (menuItems: WPMenuItem[]) =>
+const generatePages = (menuItems: WpMenuItem[]) =>
   menuItems
     .filter(({ parent, status, id }) => {
       const isRootItem = parent === 0 && status === 'publish';
@@ -64,7 +64,7 @@ const generateHref = (url: string, id: string | number): string => {
   return `/category/${id}/${uri}`;
 };
 
-export const generateNavbarMenu = (wpMenuItems: WPMenuItem[]): Navigation => {
+export const generateNavbarMenu = (wpMenuItems: WpMenuItem[]): Navigation => {
   const categories = generateCategories(wpMenuItems);
   const pages = generatePages(wpMenuItems);
 

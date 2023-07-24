@@ -4,8 +4,8 @@ import { ReactNode, Suspense } from 'react';
 import Navbar from 'src/components/layout/Navbar';
 import Footer from 'src/components/layout/Footer';
 import { generateNavbarMenu } from 'src/components/layout/Navbar/utils/generateNavbarMenu';
-import { generateFooterMenu } from 'src/components/layout/Footer/generateFooterMenu';
 import { getMenuItems } from 'src/services/getMenuItems';
+import { APP_CONFIG } from 'src/config';
 
 import './globals.css';
 
@@ -25,31 +25,26 @@ export const metadata = {
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter'
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--inter-var'
 });
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
-  const [wpHeaderMenu, wpFooterMenu] = await Promise.all([
-    getMenuItems(process.env.WP_HEADER_MENU_ID as string),
-    getMenuItems(process.env.WP_FOOTER_MENU_ID as string)
-  ]);
+  const wpHeaderMenu = await getMenuItems(process.env.WP_HEADER_MENU_ID as string);
 
   const headerMenu = generateNavbarMenu(wpHeaderMenu);
-  const footerMenu = generateFooterMenu(wpFooterMenu);
 
   return (
-    <html lang="pl" className={inter.variable}>
-      <body className="bg-white text-black selection:bg-teal-300">
+    <html lang={APP_CONFIG.lang} className={inter.variable}>
+      <body className="selection:bg-blue-300 bg-white font-sans text-black antialiased">
         <div className="bg-white">
-          <header className="relative bg-white">
+          <header className="relative border-b border-gray-200 bg-white">
             <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <div className="border-b border-gray-200">
-                <div className="flex h-16 items-center">
-                  <Suspense>
-                    {/* @ts-expect-error Server Component */}
-                    <Navbar menu={headerMenu} />
-                  </Suspense>
-                </div>
+              <div className="flex h-16 items-center">
+                <Suspense>
+                  {/* @ts-expect-error Server Component */}
+                  <Navbar menu={headerMenu} />
+                </Suspense>
               </div>
             </nav>
           </header>
@@ -60,7 +55,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         </Suspense>
         <Suspense>
           {/* @ts-expect-error Server Component */}
-          <Footer menu={footerMenu} />
+          <Footer />
         </Suspense>
       </body>
     </html>

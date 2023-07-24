@@ -6,6 +6,7 @@ const baseUrl =
 export const APP_CONFIG = {
   baseUrl,
   apiUrl: `${baseUrl}/api`,
+  lang: 'en',
   company: {
     name: 'Test Company',
     imageUrl: 'https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600'

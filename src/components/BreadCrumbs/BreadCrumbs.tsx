@@ -21,7 +21,10 @@ const BreadCrumbs = ({ items }: Props) => (
         index !== items.length - 1 ? (
           <li key={id}>
             <div className="flex items-center">
-              <Link href={`/category/${href}`} className="mr-2 text-sm font-medium text-gray-900">
+              <Link
+                href={`/category/${id}${href}`}
+                className="mr-2 text-sm font-medium text-gray-900"
+              >
                 {name}
               </Link>
               <svg
@@ -39,7 +42,7 @@ const BreadCrumbs = ({ items }: Props) => (
         ) : (
           <li className="text-sm" key={id}>
             <Link
-              href={`/category/${href}`}
+              href={`/category/${id}${href}`}
               aria-current="page"
               className="font-medium text-gray-500 hover:text-gray-600"
             >

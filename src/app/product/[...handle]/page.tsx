@@ -12,21 +12,6 @@ import { Category } from 'src/lib/woocommerce/types';
 
 export const runtime = 'edge';
 
-const generateBreadcrumbs = (categories: Category[]) =>
-  categories.reduce<BreadCrumb[]>(
-    (accumulator, nextValue) =>
-      !!accumulator.length && accumulator[accumulator.length - 1]?.href
-        ? [
-            ...accumulator,
-            {
-              ...nextValue,
-              href: `${accumulator[accumulator.length - 1]?.href || ''}/${nextValue.slug}`
-            }
-          ]
-        : [{ ...nextValue, href: `/${nextValue.slug}` }],
-    []
-  );
-
 export async function generateMetadata({
   params
 }: {
@@ -66,6 +51,21 @@ export async function generateMetadata({
       : null
   };
 }
+
+const generateBreadcrumbs = (categories: Category[]) =>
+  categories.reduce<BreadCrumb[]>(
+    (accumulator, nextValue) =>
+      !!accumulator.length && accumulator[accumulator.length - 1]?.href
+        ? [
+            ...accumulator,
+            {
+              ...nextValue,
+              href: `${accumulator[accumulator.length - 1]?.href || ''}/${nextValue.slug}`
+            }
+          ]
+        : [{ ...nextValue, href: `/${nextValue.slug}` }],
+    []
+  );
 
 export default async function ProductPage({ params }: { params: { handle: string } }) {
   const [productId] = params.handle;

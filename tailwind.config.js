@@ -7,14 +7,11 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)']
+        sans: ['--inter-var', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont']
       },
       colors: {
         gray: colors.neutral,
-        hotPink: '#FF1966',
-        dark: '#111111',
         light: '#FAFAFA',
-        violetDark: '#4c2889',
         blue: '#3b82f6'
       },
       keyframes: {

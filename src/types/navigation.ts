@@ -40,7 +40,7 @@ export interface Navigation {
 
 export interface FooterMenuSectionItem {
   name: string;
-  id: string;
+  id: string | number;
   href: string;
 }
 
