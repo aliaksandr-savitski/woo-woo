@@ -13,6 +13,13 @@ export async function GET(req: NextRequest): Promise<Response> {
 
     return NextResponse.json({ status, statusText, data });
   } catch (error) {
-    throw new Error(error.message);
+    if (error instanceof Error) {
+      console.log(error.message);
+      throw error;
+    } else {
+      console.log('Something went wrong', error);
+    }
+
+    throw error;
   }
 }

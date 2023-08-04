@@ -4,6 +4,8 @@ import { getMenuItems } from 'src/services/getMenuItems';
 import { generateFooterMenu } from 'src/components/layout/Footer/generateFooterMenu';
 import Logo from 'src/components/Logo';
 
+export const runtime = 'edge';
+
 const { SITE_NAME } = process.env;
 
 const Footer = async () => {
