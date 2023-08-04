@@ -1,4 +1,4 @@
-# Next.js WooCommerce
+# Woo Woo - Next.js WooCommerce Template
 
 This is a Next.js 13 template for WooCommerce web store, inspired by [Vercel Commerce](https://github.com/vercel/commerce). It was reworked to change the view of the online shop to be more standart ecommerce website, but keeping most important features as a starting point:
 
