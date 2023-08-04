@@ -29,7 +29,7 @@ const inter = Inter({
   variable: '--inter-var'
 });
 
-export default async function RootLayout({ children }: { children: ReactNode }) {
+const RootLayout = async ({ children }: { children: ReactNode }) => {
   const wpHeaderMenu = await getMenuItems(process.env.WP_HEADER_MENU_ID as string);
 
   const headerMenu = generateNavbarMenu(wpHeaderMenu);
@@ -60,4 +60,6 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;
