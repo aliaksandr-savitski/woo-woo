@@ -1,8 +1,8 @@
 {
   "private": true,
   "engines": {
-    "node": ">=16",
-    "pnpm": ">=7"
+    "node": ">=18",
+    "pnpm": ">=9"
   },
   "scripts": {
     "dev": "next dev -p 8000",
