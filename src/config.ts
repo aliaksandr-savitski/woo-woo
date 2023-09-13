@@ -1,7 +1,7 @@
 const baseUrl =
   process.env.NEXT_PUBLIC_VERCEL_ENV === 'development'
-    ? `http://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}`
-    : `https://${process.env.NEXT_PUBLIC_HOST}`;
+    ? `http://${process.env.VERCEL_URL}:${process.env.NEXT_PUBLIC_PORT}`
+    : `https://${process.env.VERCEL_URL}`;
 
 export const APP_CONFIG = {
   baseUrl,
