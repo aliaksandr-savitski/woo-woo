@@ -15,11 +15,11 @@ export const runtime = 'edge';
 export async function generateMetadata({
   params
 }: {
-  params: { handle: string };
+  params: { productId: string; productName: string };
 }): Promise<Metadata> {
-  const [productId] = params.handle;
+  const { productId } = params;
 
-  if (!productId) return {};
+  if (!productId) return notFound();
 
   const product = await getProduct(productId);
 
@@ -67,8 +67,12 @@ const generateBreadcrumbs = (categories: Category[]) =>
     []
   );
 
-export default async function ProductPage({ params }: { params: { handle: string } }) {
-  const [productId] = params.handle;
+export default async function ProductPage({
+  params
+}: {
+  params: { productId: string; productName: string };
+}) {
+  const { productId } = params;
 
   if (!productId || typeof productId !== 'string') {
     return notFound();

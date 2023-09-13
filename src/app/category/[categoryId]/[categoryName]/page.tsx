@@ -5,17 +5,17 @@ import { notFound } from 'next/navigation';
 import { getCategory } from 'src/services/getCategory';
 import { getCategoryProducts } from 'src/services/getCategoryProducts';
 
-import CategoryPageHeader from '../components/CategoryPageHeader';
-import CategoryList from '../components/CategoryList';
+import CategoryPageHeader from '../../components/CategoryPageHeader';
+import CategoryList from '../../components/CategoryList';
 
 export const runtime = 'edge';
 
 export async function generateMetadata({
   params
 }: {
-  params: { handle: string };
+  params: { categoryId: string };
 }): Promise<Metadata> {
-  const [categoryId] = params.handle.slice(0, 1);
+  const { categoryId } = params;
 
   if (!categoryId || typeof categoryId !== 'string') {
     return notFound();
@@ -45,8 +45,8 @@ export async function generateMetadata({
   };
 }
 
-const CategoryPage = async ({ params }: { params: { handle: string[] } }) => {
-  const [categoryId] = params.handle.slice(0, 1);
+const CategoryPage = async ({ params }: { params: { categoryId: string } }) => {
+  const { categoryId } = params;
 
   if (!categoryId || typeof categoryId !== 'string') {
     return notFound();
