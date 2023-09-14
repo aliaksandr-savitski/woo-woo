@@ -5,8 +5,8 @@ import { notFound } from 'next/navigation';
 import { getCategory } from 'src/services/getCategory';
 import { getCategoryProducts } from 'src/services/getCategoryProducts';
 
-import CategoryPageHeader from '../../components/CategoryPageHeader';
-import CategoryList from '../../components/CategoryList';
+import CategoryPageHeader from '../../_components/CategoryPageHeader';
+import CategoryList from '../../_components/CategoryList';
 
 export const runtime = 'edge';
 
