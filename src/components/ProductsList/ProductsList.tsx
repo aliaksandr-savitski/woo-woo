@@ -1,8 +1,7 @@
 'use client';
 
+import { Product } from 'src/types';
 import ProductsListItem from './ProductsListItem';
-
-import { Product } from 'src/lib/woocommerce/types';
 
 interface Props {
   products: Product[];

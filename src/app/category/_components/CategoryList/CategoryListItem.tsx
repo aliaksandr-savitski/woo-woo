@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Product } from 'src/lib/woocommerce/types';
+import { Product } from 'src/types';
 import Price from 'src/components/Price';
 
 export const runtime = 'edge';

@@ -27,7 +27,7 @@ export interface MetaDatum {
   value: string;
 }
 
-export interface Product {
+export interface WooCommerceProduct {
   id: number;
   name: string;
   slug: string;
