@@ -1,5 +1,5 @@
 type Props = {
-  amount: string;
+  amount: number;
   currencyCode?: string;
 } & React.ComponentProps<'p'>;
 
@@ -9,7 +9,7 @@ const Price = ({ amount, currencyCode = 'PLN', ...props }: Props) => (
       style: 'currency',
       currency: currencyCode,
       currencyDisplay: 'narrowSymbol'
-    }).format(parseFloat(amount))}`}
+    }).format(amount)}`}
   </p>
 );
 
